@@ -16,7 +16,7 @@ function createButtons() {
         // Dynamically generate buttons for each item in array gifArr
         var a = $("<button>");
         // Add class
-        a.addClass("gif");
+        a.addClass("gif-button");
         // Add data-attribute with the value of gif at index i
         a.attr("data-name", gifArr[i]);
         // Create button text with value of gif at index i
@@ -43,4 +43,23 @@ $("#add-gif").on('click', function(event) {
 
     // Call createButtons to display initial gifs
     createButtons();
+});
+
+// Using data method save variable
+$(document).on('click', ".gif-button", function() {
+    var querySearch = $(this).attr("data-name");
+    console.log("Query search:", querySearch);
+ 
+    // Store giphy API with limit of 5 random gifs that match search
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + querySearch + "&apikey=Jx2X8p6iChAEGP6AurxYmQwAxpWIgn9S" + "&limit=5";
+
+    // Creating our AJAX call
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        for(var i = 0; i < response.data.length; i++) {
+            console.log(response.data[i].embed_url);
+        }
+    });
 });
