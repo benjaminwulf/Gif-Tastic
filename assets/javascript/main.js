@@ -23,6 +23,7 @@ function createButtons() {
         a.text(gifArr[i]);
         // Add the button to the HTML
         $("#gif-view").append(a);
+        //bww
         console.log("createButtons pushed");
     }
 };
@@ -48,6 +49,7 @@ $("#add-gif").on('click', function(event) {
 // Using data method save variable
 $(document).on('click', ".gif-button", function() {
     var querySearch = $(this).attr("data-name");
+    // bww
     console.log("Query search:", querySearch);
  
     // Store giphy API with limit of 5 random gifs that match search
@@ -59,7 +61,17 @@ $(document).on('click', ".gif-button", function() {
         method: "GET"
     }).then(function(response) {
         for(var i = 0; i < response.data.length; i++) {
-            console.log(response.data[i].embed_url);
+            if (response.data[i].rating == "g" || "pg") {
+            //bww
+            console.log(response.data[i].rating);
+            console.log(response.data[i].images.downsized.url);
+            // Post gifs to page
+            $('#gif-area').prepend("<p>" + response.data[i].rating + "</p>")
+            $('#gif-area').prepend('<img src="' + response.data[i].images.downsized.url + '">');
+
+            }
         }
     });
+
+
 });
