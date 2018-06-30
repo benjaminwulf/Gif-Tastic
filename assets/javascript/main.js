@@ -63,47 +63,40 @@ $(document).on('click', ".gif-button", function () {
         for (var i = 0; i < response.data.length; i++) {
                 // Take response rating, downsize url and downsize url still
                 rating = response.data[i].rating;
-                animate = response.data[i].images.downsized.url;
-                still = response.data[i].images.downsized_still.url;
+                animate = response.data[i].images.fixed_width.url;
+                still = response.data[i].images.fixed_width_still.url;
         
             
             if (rating === "g" || "pg") {
                 $('#gif-area').prepend('<p>' + rating + '</p>');
-                $('#gif-area').prepend('<img src =' + still + '>');
+                var gif = $('<img>')
+                gif.attr('src', still);
+                gif.attr("data-still", still);
+                gif.attr("data-animate", animate);
+                gif.attr("data-state", "still");
+
+                $('#gif-area').prepend(gif);
                 }
             }
+
         });
         
 
     // Start and stop the animation by changing out the url to the still version and back again on click
-    function animate() {
-
-        $('img').each(function(e) {
-
-            var src = $(e).attr('src');
-
-            $(e).click(function() {
-                $(this).attr('src', src.replace(still, animate));
-            }, function() {
-                $(this).attr('src', src);
-            });
-
+    $('#gif-area').on('click', 'img', function() {
 
             //bww KEEP PROBABLY...
-            // var state = $(this).attr("data-state");
+            var state = $(this).attr("data-state");
             // If the clicked image's state is still, update its src attribute to what its data-animate value is.
             // Then, set the image's data-state to animate
             // Else set src to the data-still value
-            // if (state === "still") {
-            //     $(this).attr('src', $(this).attr("data-animate"));
-            //     $(this).attr("data-state", "animate");
-            // } else {
-            //     $(this).attr('src', $(this).attr("data-still"));
-            //     $(this).attr("data-state", "still");
-            // }
+            if (state === "still") {
+                $(this).attr('src', $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else if (state === "animate") {
+                $(this).attr('src', $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
         });
-    }
-
-    animate();
 });
 
