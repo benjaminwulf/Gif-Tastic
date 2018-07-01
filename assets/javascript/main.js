@@ -53,7 +53,7 @@ $(document).on('click', ".gif-button", function () {
     console.log("Query search:", querySearch);
 
     // Store giphy API with limit of 10 random gifs that match search
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + querySearch + "&apikey=Jx2X8p6iChAEGP6AurxYmQwAxpWIgn9S" + "&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + querySearch + "&apikey=Jx2X8p6iChAEGP6AurxYmQwAxpWIgn9S" + "&limit=10";
     
     // Creating our AJAX call
     $.ajax({
