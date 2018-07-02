@@ -67,7 +67,7 @@ $(document).on('click', ".gif-button", function () {
                 still = response.data[i].images.fixed_width_still.url;
         
             
-            if (rating === "g" || "pg") {
+            if (rating === "g" || rating === "pg") {
                 $('#gif-area').prepend('<p>' + rating + '</p>');
                 var gif = $('<img>')
                 gif.attr('src', still);
